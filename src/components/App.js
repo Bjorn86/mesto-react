@@ -1,34 +1,15 @@
-import logo from "./logo.svg";
+// IMPORT COMPONENTS
+import Header from "./Header";
+import Main from "./Main";
+import Footer from "./Footer"
 
+// APP COMPONENT
 function App() {
   return (
     <>
-      <header className="header">
-        <div className="logo header__logo"></div>
-      </header>
-      <main className="content">
-        <section className="profile">
-          <div className="profile__wrapper">
-            <button className="profile__btn-avatar-edit">
-              <img src="#" alt="Аватар пользователя" className="profile__avatar" />
-            </button>
-            <div className="profile__user-wrapper">
-              <div className="profile__user-edit">
-                <h1 className="profile__user-name"></h1>
-                <button type="button" className="profile__btn-edit"></button>
-              </div>
-              <p className="profile__user-about"></p>
-            </div>
-          </div>
-          <button type="button" className="profile__btn-add"></button>
-        </section>
-        <section className="cards" aria-label="Секция с карточками">
-          <ul className="cards__wrapper"></ul>
-        </section>
-      </main>
-      <footer className="footer">
-        <p className="footer__copyright">&copy; 2022 Данила Легкобытов</p>
-      </footer>
+      <Header />
+      <Main />
+      <Footer />
       <div className="popup popup_type_edit-profile">
         <div className="popup__item-container">
           <h2 className="popup__title">Редактировать профиль</h2>
