@@ -1,9 +1,8 @@
 import logo from "./logo.svg";
-import "./App.css";
 
 function App() {
   return (
-    <div className="page">
+    <>
       <header className="header">
         <div className="logo header__logo"></div>
       </header>
@@ -193,7 +192,7 @@ function App() {
           </div>
         </li>
       </template>
-    </div>
+    </>
   );
 }
 
