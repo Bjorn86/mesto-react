@@ -1,10 +1,10 @@
 // MAIN COMPONENT
-function Main() {
+function Main(props) {
   return (
     <main className="content">
       <section className="profile">
         <div className="profile__wrapper">
-          <button className="profile__btn-avatar-edit">
+          <button className="profile__btn-avatar-edit" onClick={props.onEditAvatar}>
             <img
               src="#"
               alt="Аватар пользователя"
@@ -14,12 +14,12 @@ function Main() {
           <div className="profile__user-wrapper">
             <div className="profile__user-edit">
               <h1 className="profile__user-name">#</h1>
-              <button type="button" className="profile__btn-edit"></button>
+              <button type="button" className="profile__btn-edit" onClick={props.onEditProfile}></button>
             </div>
             <p className="profile__user-about"></p>
           </div>
         </div>
-        <button type="button" className="profile__btn-add"></button>
+        <button type="button" className="profile__btn-add" onClick={props.onAddPlace}></button>
       </section>
       <section className="cards" aria-label="Секция с карточками">
         <ul className="cards__wrapper"></ul>
