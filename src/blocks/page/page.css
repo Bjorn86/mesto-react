@@ -1,10 +1,7 @@
 .page {
-  min-width: 320px;
-  max-width: 880px;
-  margin: 0 auto;
+  min-height: 100vh;
+  max-width: 100vw;
   background-color: #000;
-  display: flex;
-  flex-direction: column;
   padding: 45px 0 60px;
 }
 
