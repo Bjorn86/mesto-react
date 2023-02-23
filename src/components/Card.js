@@ -1,23 +1,23 @@
 // CARD COMPONENT
-function Card(props) {
+function Card({ card, onCardClick }) {
   // HANDLE CARD IMAGE CLICK
   function handleClick() {
-    props.onCardClick(props.card);
+    onCardClick(card);
   }
   return (
     <li className="card">
       <button type="button" className="card__btn-del"></button>
       <img
-        src={props.card.link}
+        src={card.link}
         alt="Описание изображения"
         className="card__img"
         onClick={handleClick}
       />
       <div className="card__caption">
-        <h2 className="card__title">{props.card.name}</h2>
+        <h2 className="card__title">{card.name}</h2>
         <div className="card__like-wrapper">
           <button type="button" className="card__btn-like"></button>
-          <p className="card__like-counter">{props.card.likes.length}</p>
+          <p className="card__like-counter">{card.likes.length}</p>
         </div>
       </div>
     </li>

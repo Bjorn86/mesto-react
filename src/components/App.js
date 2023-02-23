@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 // IMPORT COMPONENTS
 import Header from "./Header";
 import Main from "./Main";
@@ -9,10 +9,10 @@ import ImagePopup from "./ImagePopup";
 // APP COMPONENT
 function App() {
   // STATE VARIABLES WITH HOOKS
-  const [isEditAvatarPopupOpen, setEditAvatarPopupClass] = React.useState(false);
-  const [isEditProfilePopupOpen, setEditProfilePopupClass] = React.useState(false);
-  const [isAddPlacePopupOpen, setAddPlacePopupClass] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState('');
+  const [isEditAvatarPopupOpen, setEditAvatarPopupClass] = useState(false);
+  const [isEditProfilePopupOpen, setEditProfilePopupClass] = useState(false);
+  const [isAddPlacePopupOpen, setAddPlacePopupClass] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
   // HANDLE EDIT AVATAR CLICK
   function handleEditAvatarClick() {
     setEditAvatarPopupClass(true);
@@ -34,7 +34,7 @@ function App() {
     setEditAvatarPopupClass(false);
     setEditProfilePopupClass(false);
     setAddPlacePopupClass(false);
-    setSelectedCard('');
+    setSelectedCard(null);
   }
   return (
     <div className="page__content">
