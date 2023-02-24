@@ -9,7 +9,7 @@ function Card({ card, onCardClick }) {
       <button type="button" className="card__btn-del"></button>
       <img
         src={card.link}
-        alt="Описание изображения"
+        alt={card.name}
         className="card__img"
         onClick={handleClick}
       />

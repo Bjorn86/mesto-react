@@ -27,7 +27,7 @@ function App() {
   }
   // HANDLE CARD IMAGE CLICK
   function handleCardClick(card) {
-    setSelectedCard(card.link);
+    setSelectedCard(card);
   }
   // HANDLE CLOSE ALL POPUPS
   function closeAllPopups() {
