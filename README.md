@@ -16,3 +16,5 @@
 ### Макет проекта
 
 [Ссылка на макет проекта](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1 "Макет проекта в Figma")
+
+<!-- TODO: Класс и стили card__btn-del_inactive больше не нужны так как если мы не хозяева карточки кнопка просто не отрисовывается -->
