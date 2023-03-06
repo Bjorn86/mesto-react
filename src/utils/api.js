@@ -63,19 +63,19 @@ class Api {
       headers: this._headers
     })
   }
-  // SET CARD LIKE METHOD
-  setCardLike(id) {
-    return this._request(`${this._serverUrl}/cards/${id}/likes`, {
-      method: 'PUT',
-      headers: this._headers
-    })
-  }
-  //DELETE CARD LIKE METHOD
-  deleteCardLike(id) {
-    return this._request(`${this._serverUrl}/cards/${id}/likes`, {
-      method: 'DELETE',
-      headers: this._headers
-    })
+  // CHANGE LIKE CARD STATUS METHOD
+  changeLikeCardStatus(id, isLiked) {
+    if (isLiked) {
+      return this._request(`${this._serverUrl}/cards/${id}/likes`, {
+        method: 'DELETE',
+        headers: this._headers
+      })
+    } else {
+      return this._request(`${this._serverUrl}/cards/${id}/likes`, {
+        method: 'PUT',
+        headers: this._headers
+      })
+    }
   }
 }
 

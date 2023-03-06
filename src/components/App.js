@@ -20,17 +20,18 @@ function App() {
   const [isAddPlacePopupOpen, setAddPlacePopupClass] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
-
+  const [cards, setCards] = useState([]);
+  // GETTING PRIMARY DATA FROM THE SERVER
   useEffect(() => {
-    Promise.all([api.getUserInfo()])
-      .then(([userData]) => {
+    Promise.all([api.getUserInfo(), api.getInitialCards()])
+      .then(([userData, cardsData]) => {
         setCurrentUser(userData);
+        setCards(cardsData);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
-
   // HANDLE EDIT AVATAR CLICK
   function handleEditAvatarClick() {
     setEditAvatarPopupClass(true);
@@ -54,15 +55,39 @@ function App() {
     setAddPlacePopupClass(false);
     setSelectedCard(null);
   }
+  // HANDLE CARD LIKE
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((item) => item._id === currentUser._id);
+    api.changeLikeCardStatus(card._id, isLiked)
+      .then((newCard) => {
+        setCards((state) => state.map((item) => item._id === card._id ? newCard : item));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  // HANDLE CARD DELETE
+  function handleCardDelete(card) {
+    api.deleteCard(card._id)
+      .then(() => {
+        setCards((state) => state.filter((item) => item._id !== card._id))
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   return (
     <div className="page__content">
       <CurrentUserContext.Provider value={currentUser}>
         <Header />
         <Main
+          cards={cards}
           onEditAvatar={handleEditAvatarClick}
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onCardClick={handleCardClick}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
         />
         <Footer />
         <PopupWithForm

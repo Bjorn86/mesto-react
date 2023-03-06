@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 // CARD COMPONENT
-function Card({ card, onCardClick }) {
+function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   // CONTEXT VARIABLES
   const currentUser = useContext(CurrentUserContext);
   // OTHER VARIABLES
@@ -14,9 +14,17 @@ function Card({ card, onCardClick }) {
   function handleClick() {
     onCardClick(card);
   }
+  // HANDLE LIKE CLICK
+  function handleLikeClick() {
+    onCardLike(card);
+  }
+  // HANDLE DELETE CLICK
+  function handleDeleteClick() {
+    onCardDelete(card)
+  }
   return (
     <li className="card">
-      {isOwn && <button type="button" className="card__btn-del"></button>}
+      {isOwn && <button type="button" className="card__btn-del" onClick={handleDeleteClick}></button>}
       <img
         src={card.link}
         alt={card.name}
@@ -31,6 +39,7 @@ function Card({ card, onCardClick }) {
             className={`card__btn-like${
               isLiked ? " card__btn-like_active" : ""
             }`}
+            onClick={handleLikeClick}
           ></button>
           <p className="card__like-counter">{card.likes.length}</p>
         </div>

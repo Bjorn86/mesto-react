@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 
 // IMPORT COMPONENTS
 import Card from "./Card";
@@ -6,26 +6,10 @@ import Card from "./Card";
 // IMPORT CONTEXT
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-// IMPORT API CLASS INSTANCE
-import { api } from "../utils/api";
-
 // MAIN COMPONENT
-function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
-  // STATE VARIABLES WITH HOOKS
-  const [cards, setCards] = useState([]);
+function Main({ cards, onEditAvatar, onEditProfile, onAddPlace, onCardClick, onCardLike, onCardDelete }) {
   // CONTEXT VARIABLES
   const currentUser = useContext(CurrentUserContext);
-
-  // GETTING PRIMARY DATA FROM THE SERVER
-  useEffect(() => {
-    Promise.all([api.getInitialCards()])
-      .then(([cardsData]) => {
-        setCards(cardsData);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
   return (
     <main className="content">
       <section className="profile">
@@ -61,7 +45,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
       <section className="cards" aria-label="Секция с карточками">
         <ul className="cards__wrapper">
           {cards.map((card, i) => (
-            <Card card={card} key={card._id} onCardClick={onCardClick} />
+            <Card card={card} key={card._id} onCardClick={onCardClick} onCardLike={onCardLike} onCardDelete={onCardDelete} />
           ))}
         </ul>
       </section>
