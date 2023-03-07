@@ -19,7 +19,7 @@ class Api {
     })
   }
   // SEND USER INFO METHOD
-  sendUserInfo(userData) {
+  setUserInfo(userData) {
     return this._request(`${this._serverUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
