@@ -4,7 +4,7 @@ import { useState } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 // ADD PLACE POPUP COMPONENT
-function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
+function AddPlacePopup({ isOpen, onClose, onAddPlace, onLoading }) {
   // STATE VARIABLES WITH HOOKS
   const [cardName, setCardName] = useState('');
   const [imageLink, setImageLink] = useState('');
@@ -20,7 +20,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
     <PopupWithForm
       name="add-card"
       title="Новое место"
-      buttonText="Создать"
+      buttonText={onLoading ? 'Сохранение...' : 'Создать'}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
