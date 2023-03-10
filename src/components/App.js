@@ -5,9 +5,10 @@ import Main from "./Main";
 import Footer from "./Footer";
 import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
-import EditAvatarPopup from "./EditAvatarPopup"
+import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import DeleteCardPopup from "./DeleteCardPopup";
+import Preloader from "./Preloader";
 
 // IMPORT CONTEXT
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
@@ -26,6 +27,7 @@ function App() {
   const [isEditProfilePopupOnLoading, setEditProfilePopupButtonText] = useState(false);
   const [isAddPlacePopupOnLoading, setAddPlacePopupButtonText] = useState(false);
   const [isDeleteCardPopupOnLoading, setDeleteCardPopupButtonText] = useState(false);
+  const [isPreloaderActive, setPreloaderClass] = useState(true);
   const [selectedCard, setSelectedCard] = useState(null);
   const [cardToDelete, setCardToDelete] = useState({});
   const [currentUser, setCurrentUser] = useState({});
@@ -39,18 +41,21 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setPreloaderClass(false);
       });
   }, []);
   // HANDLE CLOSE POPUP BY ESC BUTTON
   useEffect(() => {
     function handleEscClose(e) {
-      if (e.key === 'Escape') {
-        closeAllPopups()
+      if (e.key === "Escape") {
+        closeAllPopups();
       }
-    };
-    window.addEventListener('keydown', handleEscClose);
-    return () => window.removeEventListener('keydown', handleEscClose);
-  }, [isEditAvatarPopupOpen, isEditProfilePopupOpen, isAddPlacePopupOpen, isDeleteCardPopupOpen, selectedCard])
+    }
+    window.addEventListener("keydown", handleEscClose);
+    return () => window.removeEventListener("keydown", handleEscClose);
+  }, []);
   // HANDLE EDIT AVATAR CLICK
   function handleEditAvatarClick() {
     setEditAvatarPopupClass(true);
@@ -79,13 +84,16 @@ function App() {
     setAddPlacePopupClass(false);
     setDeleteCardPopupClass(false);
     setSelectedCard(null);
+    setCardToDelete({});
   }
   // HANDLE CARD LIKE
   function handleCardLike(card) {
     const isLiked = card.likes.some((item) => item._id === currentUser._id);
     api.changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
-        setCards((state) => state.map((item) => item._id === card._id ? newCard : item));
+        setCards((state) =>
+          state.map((item) => (item._id === card._id ? newCard : item))
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -96,7 +104,7 @@ function App() {
     setDeleteCardPopupButtonText(true);
     api.deleteCard(card._id)
       .then(() => {
-        setCards((state) => state.filter((item) => item._id !== card._id))
+        setCards((state) => state.filter((item) => item._id !== card._id));
       })
       .then(() => {
         closeAllPopups();
@@ -158,7 +166,7 @@ function App() {
       })
       .finally(() => {
         setAddPlacePopupButtonText(false);
-      })
+      });
   }
   return (
     <div className="page__content">
@@ -174,11 +182,33 @@ function App() {
           onCardDelete={handleDeleteClick}
         />
         <Footer />
-        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} onLoading={isEditAvatarPopupOnLoading} />
-        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} onLoading={isEditProfilePopupOnLoading} />
-        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} onLoading={isAddPlacePopupOnLoading} />
-        <DeleteCardPopup isOpen={isDeleteCardPopupOpen} onClose={closeAllPopups} onDeleteCard={handleCardDelete} onLoading={isDeleteCardPopupOnLoading} card={cardToDelete} />
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
+          onLoading={isEditAvatarPopupOnLoading}
+        />
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}
+          onLoading={isEditProfilePopupOnLoading}
+        />
+        <AddPlacePopup
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+          onAddPlace={handleAddPlaceSubmit}
+          onLoading={isAddPlacePopupOnLoading}
+        />
+        <DeleteCardPopup
+          isOpen={isDeleteCardPopupOpen}
+          onClose={closeAllPopups}
+          onDeleteCard={handleCardDelete}
+          onLoading={isDeleteCardPopupOnLoading}
+          card={cardToDelete}
+        />
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+        <Preloader isActive={isPreloaderActive} />
       </CurrentUserContext.Provider>
     </div>
   );

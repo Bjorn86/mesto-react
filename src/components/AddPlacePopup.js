@@ -6,8 +6,8 @@ import PopupWithForm from "./PopupWithForm";
 // ADD PLACE POPUP COMPONENT
 function AddPlacePopup({ isOpen, onClose, onAddPlace, onLoading }) {
   // STATE VARIABLES WITH HOOKS
-  const [cardName, setCardName] = useState('');
-  const [imageLink, setImageLink] = useState('');
+  const [cardName, setCardName] = useState("");
+  const [imageLink, setImageLink] = useState("");
   // HANDLE SUBMIT
   function handleSubmit(e) {
     e.preventDefault();
@@ -20,7 +20,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, onLoading }) {
     <PopupWithForm
       name="add-card"
       title="Новое место"
-      buttonText={onLoading ? 'Сохранение...' : 'Создать'}
+      buttonText={onLoading ? "Сохранение..." : "Создать"}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}

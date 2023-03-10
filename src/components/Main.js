@@ -7,17 +7,22 @@ import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 // MAIN COMPONENT
-function Main({ cards, onEditAvatar, onEditProfile, onAddPlace, onCardClick, onCardLike, onCardDelete }) {
+function Main({
+  cards,
+  onEditAvatar,
+  onEditProfile,
+  onAddPlace,
+  onCardClick,
+  onCardLike,
+  onCardDelete,
+}) {
   // CONTEXT VARIABLES
   const currentUser = useContext(CurrentUserContext);
   return (
     <main className="content">
       <section className="profile">
         <div className="profile__wrapper">
-          <button
-            className="profile__btn-avatar-edit"
-            onClick={onEditAvatar}
-          >
+          <button className="profile__btn-avatar-edit" onClick={onEditAvatar}>
             <img
               src={currentUser.avatar}
               alt="Аватар пользователя"
@@ -44,8 +49,14 @@ function Main({ cards, onEditAvatar, onEditProfile, onAddPlace, onCardClick, onC
       </section>
       <section className="cards" aria-label="Секция с карточками">
         <ul className="cards__wrapper">
-          {cards.map((card, i) => (
-            <Card card={card} key={card._id} onCardClick={onCardClick} onCardLike={onCardLike} onCardDelete={onCardDelete} />
+          {cards.map((card) => (
+            <Card
+              card={card}
+              key={card._id}
+              onCardClick={onCardClick}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
+            />
           ))}
         </ul>
       </section>

@@ -20,11 +20,17 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   }
   // HANDLE DELETE CLICK
   function handleDeleteClick() {
-    onCardDelete(card)
+    onCardDelete(card);
   }
   return (
     <li className="card">
-      {isOwn && <button type="button" className="card__btn-del" onClick={handleDeleteClick}></button>}
+      {isOwn && (
+        <button
+          type="button"
+          className="card__btn-del"
+          onClick={handleDeleteClick}
+        ></button>
+      )}
       <img
         src={card.link}
         alt={card.name}

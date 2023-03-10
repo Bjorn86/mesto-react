@@ -9,8 +9,8 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 // EDIT PROFILE POPUP COMPONENT
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, onLoading }) {
   // STATE VARIABLES WITH HOOKS
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   // CONTEXT VARIABLES
   const currentUser = useContext(CurrentUserContext);
   // SET USER DATA TO INPUTS FROM PROFILE
@@ -30,7 +30,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, onLoading }) {
     <PopupWithForm
       name="edit-profile"
       title="Редактировать профиль"
-      buttonText={onLoading ? 'Сохранение...' : 'Сохранить'}
+      buttonText={onLoading ? "Сохранение..." : "Сохранить"}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
@@ -46,7 +46,9 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, onLoading }) {
           maxLength="40"
           className="popup__form-input popup__form-input_substitution_name"
           id="name-input"
-          onChange={(e) => {setName(e.target.value)}}
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
           value={name}
         />
         <span className="name-input-error popup__form-input-error"></span>
@@ -62,7 +64,9 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, onLoading }) {
           maxLength="200"
           className="popup__form-input popup__form-input_substitution_about"
           id="about-input"
-          onChange={(e) => {setDescription(e.target.value)}}
+          onChange={(e) => {
+            setDescription(e.target.value);
+          }}
           value={description}
         />
         <span className="about-input-error popup__form-input-error"></span>
