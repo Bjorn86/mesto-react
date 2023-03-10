@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // IMPORT COMPONENTS
 import PopupWithForm from "./PopupWithForm";
@@ -8,6 +8,11 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, onLoading }) {
   // STATE VARIABLES WITH HOOKS
   const [cardName, setCardName] = useState("");
   const [imageLink, setImageLink] = useState("");
+  // RESET INPUTS VALUE
+  useEffect(() => {
+    setCardName("");
+    setImageLink("");
+  }, [isOpen])
   // HANDLE SUBMIT
   function handleSubmit(e) {
     e.preventDefault();

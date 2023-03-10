@@ -105,8 +105,6 @@ function App() {
     api.deleteCard(card._id)
       .then(() => {
         setCards((state) => state.filter((item) => item._id !== card._id));
-      })
-      .then(() => {
         closeAllPopups();
       })
       .catch((err) => {
