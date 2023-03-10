@@ -49,7 +49,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, onLoading }) {
           onChange={(e) => {
             setName(e.target.value);
           }}
-          value={name}
+          value={name || ""}
         />
         <span className="name-input-error popup__form-input-error"></span>
       </label>
@@ -67,7 +67,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, onLoading }) {
           onChange={(e) => {
             setDescription(e.target.value);
           }}
-          value={description}
+          value={description || ""}
         />
         <span className="about-input-error popup__form-input-error"></span>
       </label>
