@@ -1,25 +1,21 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import useValidation from "../utils/useValidation";
 
 // IMPORT COMPONENTS
 import PopupWithForm from "./PopupWithForm";
 
 // ADD PLACE POPUP COMPONENT
 function AddPlacePopup({ isOpen, onClose, onAddPlace, onLoading }) {
-  // STATE VARIABLES WITH HOOKS
-  const [cardName, setCardName] = useState("");
-  const [imageLink, setImageLink] = useState("");
+  // VALIDATION CUSTOM HOOK
+  const { values, errors, isFormValid, onChange, resetValidation } = useValidation();
   // RESET INPUTS VALUE
   useEffect(() => {
-    setCardName("");
-    setImageLink("");
-  }, [isOpen])
+    resetValidation();
+  }, [isOpen, resetValidation]);
   // HANDLE SUBMIT
   function handleSubmit(e) {
     e.preventDefault();
-    onAddPlace({
-      name: cardName,
-      link: imageLink,
-    });
+    onAddPlace(values);
   }
   return (
     <PopupWithForm
@@ -29,6 +25,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, onLoading }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      isFormValid={isFormValid}
     >
       <label className="popup__input-wrapper">
         <input
@@ -39,12 +36,20 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, onLoading }) {
           placeholder="Название"
           minLength="2"
           maxLength="30"
-          className="popup__form-input popup__form-input_substitution_place-name"
+          className={`popup__form-input ${
+            errors.name ? "popup__form-input_type_error" : ""
+          }`}
           id="place-input"
-          onChange={(e) => setCardName(e.target.value)}
-          value={cardName}
+          onChange={onChange}
+          value={values.name || ""}
         />
-        <span className="place-input-error popup__form-input-error"></span>
+        <span
+          className={`popup__form-input-error ${
+            errors.name ? "popup__form-input-error_active" : ""
+          }`}
+        >
+          {errors.name || ""}
+        </span>
       </label>
       <label className="popup__input-wrapper">
         <input
@@ -53,12 +58,20 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, onLoading }) {
           form="add-card"
           required
           placeholder="Ссылка на картинку"
-          className="popup__form-input popup__form-input_substitution_link-img"
+          className={`popup__form-input ${
+            errors.link ? "popup__form-input_type_error" : ""
+          }`}
           id="link-input"
-          onChange={(e) => setImageLink(e.target.value)}
-          value={imageLink}
+          onChange={onChange}
+          value={values.link || ""}
         />
-        <span className="link-input-error popup__form-input-error"></span>
+        <span
+          className={`popup__form-input-error ${
+            errors.link ? "popup__form-input-error_active" : ""
+          }`}
+        >
+          {errors.link || ""}
+        </span>
       </label>
     </PopupWithForm>
   );
